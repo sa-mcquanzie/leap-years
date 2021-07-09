@@ -12,6 +12,11 @@ def random_year_divisible_by_4_and_not_100
   return (-2000..3000).to_a.select { |n| n % 4 == 0 && n % 100 != 0 }.sample
 end
 
+def random_year_not_divisible_by_4
+  return (-2000..3000).to_a.select { |n| n % 4 != 0 }.sample
+end
+
+
 describe Leap do
   describe '#is_leap?' do
     it 'exists and takes one argument' do
@@ -60,6 +65,14 @@ describe Leap do
       10.times do
         year = random_year_divisible_by_4_and_not_100
         expect(@leap.is_leap?(year)).to eq(true)
+      end
+    end
+
+    it 'returns false when passed a random number which is not divisible by 4' do
+      @leap = Leap.new
+      10.times do
+        year = random_year_not_divisible_by_4
+        expect(@leap.is_leap?(year)).to eq(false)
       end
     end
   end
