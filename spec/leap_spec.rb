@@ -141,7 +141,14 @@ describe Leap do
   describe '#nearest' do
     it 'exists and takes one argument' do
       @leap = Leap.new
-      @leap.nearest
+      @leap.nearest 1
+    end
+
+    it 'returns "<year> is a leap year!" when passed a leap year' do
+      @leap = Leap.new
+      list_of_leap_years.each do |year|
+        expect(@leap.nearest(year)).to eq("#{year} is a leap year!")
+      end
     end
   end
 end

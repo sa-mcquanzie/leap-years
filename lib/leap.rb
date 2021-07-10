@@ -7,7 +7,7 @@ class Leap
     (first..last).to_a.select { |year| is_leap? year }
   end
 
-  def nearest
-
+  def nearest year
+    return "#{year} is a leap year!" if is_leap? year
   end
 end
