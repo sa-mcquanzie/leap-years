@@ -3,7 +3,7 @@ require 'leap'
 # Test helpers
 
 def list_of_leap_years
-  return %w(
+  %w(
     1804 1808 1812 1816 1820 1824 1828 1832 1836 1840 1844 1848 1852 1856 1860
     1864 1868 1872 1876 1880 1884 1888 1892 1896 1904 1908 1912 1916 1920 1924
     1928 1932 1936 1940 1944 1948 1952 1956 1960 1964 1968 1972 1976 1980 1984
@@ -18,27 +18,27 @@ def list_of_leap_years
 end
 
 def random_year_divisible_by_400
-  return (-2000..3000).to_a.select { |n| n % 400 == 0 }.sample
+  (-2000..3000).to_a.select { |n| n % 400 == 0 }.sample
 end
 
 def random_year_divisible_by_100_and_not_400
-  return (-2000..3000).to_a.select { |n| n % 100 == 0 && n % 400 != 0 }.sample
+  (-2000..3000).to_a.select { |n| n % 100 == 0 && n % 400 != 0 }.sample
 end
 
 def random_year_divisible_by_4_and_not_100
-  return (-2000..3000).to_a.select { |n| n % 4 == 0 && n % 100 != 0 }.sample
+  (-2000..3000).to_a.select { |n| n % 4 == 0 && n % 100 != 0 }.sample
 end
 
 def random_year_not_divisible_by_4
-  return (-2000..3000).to_a.select { |n| n % 4 != 0 }.sample
+  (-2000..3000).to_a.select { |n| n % 4 != 0 }.sample
 end
 
 def random_leap_year
-  return list_of_leap_years.sample
+  list_of_leap_years.sample
 end
 
 def random_non_leap_year
-  return (1804..2400).to_a.select { |n| list_of_leap_years.none?(n) }.sample
+  (1804..2400).to_a.select { |n| list_of_leap_years.none? n }.sample
 end
 
 # Tests for the Leap class
@@ -55,69 +55,63 @@ describe Leap do
 
     it 'returns true when passed 2000' do
       @leap = Leap.new
-      expect(@leap.is_leap?(2000)).to eq(true)
+      expect( @leap.is_leap? 2000 ).to eq true
     end
 
     it 'returns false when passed 1700' do
       @leap = Leap.new
-      expect(@leap.is_leap?(1700)).to eq(false)
+      expect( @leap.is_leap? 1700 ).to eq false
     end
 
     it 'returns true when passed 2008' do
       @leap = Leap.new
-      expect(@leap.is_leap?(2008)).to eq(true)
+      expect( @leap.is_leap? 2008 ).to eq true
     end
 
     it 'returns false when passed 2009' do
       @leap = Leap.new
-      expect(@leap.is_leap?(2009)).to eq(false)
+      expect( @leap.is_leap? 2009 ).to eq false
     end
 
     it 'returns true when passed a random number which is divisible by 400' do
       @leap = Leap.new
       10.times do
-        year = random_year_divisible_by_400
-        expect(@leap.is_leap?(year)).to eq(true)
+        expect( @leap.is_leap? random_year_divisible_by_400 ).to eq true
       end
     end
 
     it 'returns false when passed a random number which is divisible by 100 but not 400' do
       @leap = Leap.new
       10.times do
-        year = random_year_divisible_by_100_and_not_400
-        expect(@leap.is_leap?(year)).to eq(false)
+        expect( @leap.is_leap? random_year_divisible_by_100_and_not_400 ).to eq false
       end
     end
 
     it 'returns true when passed a random number which is divisible by 4 but not 100' do
       @leap = Leap.new
       10.times do
-        year = random_year_divisible_by_4_and_not_100
-        expect(@leap.is_leap?(year)).to eq(true)
+        expect( @leap.is_leap? random_year_divisible_by_4_and_not_100 ).to eq true
       end
     end
 
     it 'returns false when passed a random number which is not divisible by 4' do
       @leap = Leap.new
       10.times do
-        year = random_year_not_divisible_by_4
-        expect(@leap.is_leap?(year)).to eq(false)
+        expect( @leap.is_leap? random_year_not_divisible_by_4 ).to eq false
       end
     end
 
     it 'returns true when passed a random sample from a large array of known leap years' do
       @leap = Leap.new
       100.times do
-        year = random_leap_year
-        expect(@leap.is_leap?(year)).to eq(true)
+        expect( @leap.is_leap? random_leap_year ).to eq true
       end
     end
 
     it 'returns false when passed a random selection of known non-leap years' do
       @leap = Leap.new
       100.times do
-        year = random_non_leap_year
-        expect(@leap.is_leap?(year)).to eq(false)
+        expect( @leap.is_leap? random_non_leap_year ).to eq false
       end
     end
   end
@@ -132,7 +126,7 @@ describe Leap do
 
     it 'returns an array containing all, and only, the leap years in the range 1804 to 2400, inclusive' do
       @leap = Leap.new
-      expect(@leap.years_between(1804, 2400)).to eq(list_of_leap_years)
+      expect( @leap.years_between(1804, 2400) ).to eq list_of_leap_years
     end
   end
 
@@ -147,18 +141,18 @@ describe Leap do
     it 'returns "<year> is a leap year!" when passed a leap year' do
       @leap = Leap.new
       list_of_leap_years.each do |year|
-        expect(@leap.nearest(year)).to eq("#{year} is a leap year!")
+        expect( @leap.nearest year ).to eq "#{year} is a leap year!"
       end
     end
 
     it 'returns "The nearest leap year is 2008" when passed 2007' do
       @leap = Leap.new
-      expect(@leap.nearest(2007)).to eq("The nearest leap year is 2008")
+      expect( @leap.nearest 2007 ).to eq "The nearest leap year is 2008"
     end
 
     it 'returns "The nearest leap years are 2004 and 2008" when passed 2006' do
       @leap = Leap.new
-      expect(@leap.nearest(2006)).to eq("The nearest leap years are 2004 and 2008")
+      expect( @leap.nearest 2006 ).to eq "The nearest leap years are 2004 and 2008"
     end
   end
 end
