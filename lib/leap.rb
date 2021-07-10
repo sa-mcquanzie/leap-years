@@ -15,6 +15,7 @@ class Leap
 
     loop do
       hi, lo = hi += 1, lo -= 1
+      return message + "s are #{lo} and #{hi}" if is_leap?(hi) && is_leap?(lo)
       return message + " is #{hi}" if is_leap? hi
       return message + " is #{lo}" if is_leap? lo
     end
