@@ -44,72 +44,64 @@ end
 # Tests for the Leap class
 
 describe Leap do
+  before(:each) do 
+    @leap = Leap.new 
+  end
 
   # Tests for the Leap.is_leap? method
-
+  
   describe '#is_leap?' do
     it 'exists and takes one argument' do
-      @leap = Leap.new
       @leap.is_leap? 0
     end
 
     it 'returns true when passed 2000' do
-      @leap = Leap.new
       expect( @leap.is_leap? 2000 ).to eq true
     end
 
     it 'returns false when passed 1700' do
-      @leap = Leap.new
       expect( @leap.is_leap? 1700 ).to eq false
     end
 
     it 'returns true when passed 2008' do
-      @leap = Leap.new
       expect( @leap.is_leap? 2008 ).to eq true
     end
 
     it 'returns false when passed 2009' do
-      @leap = Leap.new
       expect( @leap.is_leap? 2009 ).to eq false
     end
 
     it 'returns true when passed a random number which is divisible by 400' do
-      @leap = Leap.new
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_400 ).to eq true
       end
     end
 
     it 'returns false when passed a random number which is divisible by 100 but not 400' do
-      @leap = Leap.new
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_100_and_not_400 ).to eq false
       end
     end
 
     it 'returns true when passed a random number which is divisible by 4 but not 100' do
-      @leap = Leap.new
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_4_and_not_100 ).to eq true
       end
     end
 
     it 'returns false when passed a random number which is not divisible by 4' do
-      @leap = Leap.new
       10.times do
         expect( @leap.is_leap? random_year_not_divisible_by_4 ).to eq false
       end
     end
 
     it 'returns true when passed a random sample from a large array of known leap years' do
-      @leap = Leap.new
       100.times do
         expect( @leap.is_leap? random_leap_year ).to eq true
       end
     end
 
     it 'returns false when passed a random selection of known non-leap years' do
-      @leap = Leap.new
       100.times do
         expect( @leap.is_leap? random_non_leap_year ).to eq false
       end
@@ -120,12 +112,10 @@ describe Leap do
 
   describe '#years_between' do
     it 'exists and takes two arguments' do
-      @leap = Leap.new
       @leap.years_between(1, 2)
     end
 
     it 'returns an array containing all, and only, the leap years in the range 1804 to 2400, inclusive' do
-      @leap = Leap.new
       expect( @leap.years_between(1804, 2400) ).to eq list_of_leap_years
     end
   end
@@ -134,24 +124,20 @@ describe Leap do
 
   describe '#nearest' do
     it 'exists and takes one argument' do
-      @leap = Leap.new
       @leap.nearest 1
     end
 
     it 'returns "<year> is a leap year!" when passed a leap year' do
-      @leap = Leap.new
       list_of_leap_years.each do |year|
         expect( @leap.nearest year ).to eq "#{year} is a leap year!"
       end
     end
 
     it 'returns "The nearest leap year is 2008" when passed 2007' do
-      @leap = Leap.new
       expect( @leap.nearest 2007 ).to eq "The nearest leap year is 2008"
     end
 
     it 'returns "The nearest leap years are 2004 and 2008" when passed 2006' do
-      @leap = Leap.new
       expect( @leap.nearest 2006 ).to eq "The nearest leap years are 2004 and 2008"
     end
   end
