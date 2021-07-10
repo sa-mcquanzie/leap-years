@@ -1,5 +1,7 @@
 require 'leap'
 
+# Test helpers
+
 def list_of_leap_years
   return %w(
     1804 1808 1812 1816 1820 1824 1828 1832 1836 1840 1844 1848 1852 1856 1860
@@ -39,7 +41,12 @@ def random_non_leap_year
   return (1804..2400).to_a.select { |n| list_of_leap_years.none?(n) }.sample
 end
 
+# Tests for the Leap class
+
 describe Leap do
+
+  # Tests for the Leap.is_leap? method
+
   describe '#is_leap?' do
     it 'exists and takes one argument' do
       @leap = Leap.new
@@ -112,6 +119,15 @@ describe Leap do
         year = random_non_leap_year
         expect(@leap.is_leap?(year)).to eq(false)
       end
+    end
+  end
+
+  # Tests for the Leap.years_between method
+
+  describe '#years_between' do
+    it 'exists and takes two arguments' do
+      @leap = Leap.new
+      @leap.years_between(1, 2)
     end
   end
 end
