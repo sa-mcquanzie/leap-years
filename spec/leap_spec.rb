@@ -49,7 +49,7 @@ describe Leap do
   end
 
   # Tests for the Leap.is_leap? method
-  
+
   describe '#is_leap?' do
     it 'exists and takes one argument' do
       @leap.is_leap? 0
@@ -71,37 +71,37 @@ describe Leap do
       expect( @leap.is_leap? 2009 ).to eq false
     end
 
-    it 'returns true when passed a random number which is divisible by 400' do
+    it 'returns true when passed a random number which is divisible by 400', :random => true do
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_400 ).to eq true
       end
     end
 
-    it 'returns false when passed a random number which is divisible by 100 but not 400' do
+    it 'returns false when passed a random number which is divisible by 100 but not 400', :random => true  do
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_100_and_not_400 ).to eq false
       end
     end
 
-    it 'returns true when passed a random number which is divisible by 4 but not 100' do
+    it 'returns true when passed a random number which is divisible by 4 but not 100', :random => true do
       10.times do
         expect( @leap.is_leap? random_year_divisible_by_4_and_not_100 ).to eq true
       end
     end
 
-    it 'returns false when passed a random number which is not divisible by 4' do
+    it 'returns false when passed a random number which is not divisible by 4', :random => true do
       10.times do
         expect( @leap.is_leap? random_year_not_divisible_by_4 ).to eq false
       end
     end
 
-    it 'returns true when passed a random sample from a large array of known leap years' do
+    it 'returns true when passed a random sample from a large array of known leap years', :random => true do
       100.times do
         expect( @leap.is_leap? random_leap_year ).to eq true
       end
     end
 
-    it 'returns false when passed a random selection of known non-leap years' do
+    it 'returns false when passed a random selection of known non-leap years', :random => true do
       100.times do
         expect( @leap.is_leap? random_non_leap_year ).to eq false
       end
