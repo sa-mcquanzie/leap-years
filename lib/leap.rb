@@ -6,4 +6,8 @@ class Leap
   def years_between(first, last)
     (first..last).to_a.select { |year| is_leap? year }
   end
+
+  def nearest
+
+  end
 end

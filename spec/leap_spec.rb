@@ -135,4 +135,13 @@ describe Leap do
       expect(@leap.years_between(1804, 2400)).to eq(list_of_leap_years)
     end
   end
+
+  # Tests for the Leap.nearest method
+
+  describe '#nearest' do
+    it 'exists and takes one argument' do
+      @leap = Leap.new
+      @leap.nearest
+    end
+  end
 end
