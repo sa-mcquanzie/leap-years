@@ -51,23 +51,23 @@ describe Leap do
   # Tests for the Leap.is_leap? method
 
   describe '#is_leap?' do
-    it 'should exist and take one argument' do
+    it 'should exist and take one argument', :fixed => true do
       @leap.is_leap? 0
     end
 
-    it 'should return true when passed 2000' do
+    it 'should return true when passed 2000', :fixed => true do
       expect( @leap.is_leap? 2000 ).to eq true
     end
 
-    it 'should return false when passed 1700' do
+    it 'should return false when passed 1700', :fixed => true  do
       expect( @leap.is_leap? 1700 ).to eq false
     end
 
-    it 'should return true when passed 2008' do
+    it 'should return true when passed 2008', :fixed => true do
       expect( @leap.is_leap? 2008 ).to eq true
     end
 
-    it 'should return false when passed 2009' do
+    it 'should return false when passed 2009', :fixed => true do
       expect( @leap.is_leap? 2009 ).to eq false
     end
 
@@ -111,11 +111,11 @@ describe Leap do
   # Tests for the Leap.years_between method
 
   describe '#years_between' do
-    it 'should exist and take two arguments' do
+    it 'should exist and take two arguments', :fixed => true do
       @leap.years_between(1, 2)
     end
 
-    it 'should return an array containing all, and only, the leap years in the range 1804 to 2400, inclusive' do
+    it 'should return an array containing all, and only, the leap years in the range 1804 to 2400, inclusive', :fixed => true do
       expect( @leap.years_between(1804, 2400) ).to eq list_of_leap_years
     end
   end
@@ -123,21 +123,21 @@ describe Leap do
   # Tests for the Leap.nearest method
 
   describe '#nearest' do
-    it 'exists and takes one argument' do
+    it 'exists and takes one argument', :fixed => true do
       @leap.nearest 1
     end
 
-    it 'should return "<year> is a leap year!" when passed a leap year' do
+    it 'should return "<year> is a leap year!" when passed a leap year', :fixed => true  do
       list_of_leap_years.each do |year|
         expect( @leap.nearest year ).to eq "#{year} is a leap year!"
       end
     end
 
-    it 'should return "The nearest leap year is 2008" when passed 2007' do
+    it 'should return "The nearest leap year is 2008" when passed 2007', :fixed => true  do
       expect( @leap.nearest 2007 ).to eq "The nearest leap year is 2008"
     end
 
-    it 'should return "The nearest leap years are 2004 and 2008" when passed 2006' do
+    it 'should return "The nearest leap years are 2004 and 2008" when passed 2006', :fixed => true  do
       expect( @leap.nearest 2006 ).to eq "The nearest leap years are 2004 and 2008"
     end
   end
