@@ -129,5 +129,10 @@ describe Leap do
       @leap = Leap.new
       @leap.years_between(1, 2)
     end
+
+    it 'returns an array containing all, and only, the leap years in the range 1804 to 2400, inclusive' do
+      @leap = Leap.new
+      expect(@leap.years_between(1804, 2400)).to eq(list_of_leap_years)
+    end
   end
 end

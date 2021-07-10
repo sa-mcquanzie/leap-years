@@ -4,6 +4,6 @@ class Leap
   end
 
   def years_between(first, last)
-    
+    (first..last).to_a.select { |year| is_leap? year }
   end
 end
