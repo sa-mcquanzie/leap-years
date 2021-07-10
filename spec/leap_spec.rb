@@ -150,5 +150,10 @@ describe Leap do
         expect(@leap.nearest(year)).to eq("#{year} is a leap year!")
       end
     end
+
+    it 'returns "The nearest leap year is 2008" when passed 2007' do
+      @leap = Leap.new
+      expect(@leap.nearest(2007)).to eq("The nearest leap year is 2008")
+    end
   end
 end

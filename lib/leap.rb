@@ -9,5 +9,14 @@ class Leap
 
   def nearest year
     return "#{year} is a leap year!" if is_leap? year
+
+    message = "The nearest leap year"
+    hi, lo = year, year
+
+    loop do
+      hi, lo = hi += 1, lo -= 1
+      return message + " is #{hi}" if is_leap? hi
+      return message + " is #{lo}" if is_leap? lo
+    end
   end
 end
