@@ -17,28 +17,12 @@ def list_of_leap_years
   ).map(&:to_i)
 end
 
-def random_year_divisible_by_400
-  (-2000..3000).to_a.select { |n| n % 400 == 0 }.sample
-end
+def divisible_by(divisor, n) = n % divisor == 0
 
-def random_year_divisible_by_100_and_not_400
-  (-2000..3000).to_a.select { |n| n % 100 == 0 && n % 400 != 0 }.sample
-end
+def indivisible_by(divisor, n) = n % divisor != 0
 
-def random_year_divisible_by_4_and_not_100
-  (-2000..3000).to_a.select { |n| n % 4 == 0 && n % 100 != 0 }.sample
-end
-
-def random_year_not_divisible_by_4
-  (-2000..3000).to_a.select { |n| n % 4 != 0 }.sample
-end
-
-def random_leap_year
-  list_of_leap_years.sample
-end
-
-def random_non_leap_year
-  (1804..2400).to_a.select { |n| list_of_leap_years.none? n }.sample
+def random_year_matching &criteria
+  (list_of_leap_years.first..list_of_leap_years.last).to_a.select(&criteria).sample
 end
 
 # Tests for the Leap class
@@ -80,13 +64,19 @@ describe Leap do
     context 'when passed a random number which qualifies as a leap year' do
       it 'should return true if it is divisible by 400', :random => true do
         10.times do
-          expect( @leap.is_leap? random_year_divisible_by_400 ).to eq true
+          expect( @leap.is_leap? (
+            random_year_matching { |n| divisible_by(400, n) }
+          )
+        ).to eq true
         end
       end
 
       it 'should return true if it is divisible by 4 but not 100', :random => true do
         10.times do
-          expect( @leap.is_leap? random_year_divisible_by_4_and_not_100 ).to eq true
+          expect( @leap.is_leap? (
+            random_year_matching { |n| divisible_by(4, n) && indivisible_by(100, n) }
+          )
+        ).to eq true
         end
       end
     end
@@ -94,13 +84,19 @@ describe Leap do
     context 'when passed a random numer that qualifies as a non-leap year' do
       it 'should return false if it is divisible by 100 but not 400', :random => true  do
         10.times do
-          expect( @leap.is_leap? random_year_divisible_by_100_and_not_400 ).to eq false
+          expect( @leap.is_leap? (
+            random_year_matching { |n| divisible_by(100, n) && indivisible_by(400, n) }
+            )
+          ).to eq false
         end
       end
 
       it 'should return false if it is not divisible by 4', :random => true do
         10.times do
-          expect( @leap.is_leap? random_year_not_divisible_by_4 ).to eq false
+          expect( @leap.is_leap? (
+            random_year_matching { |n| indivisible_by(4, n) }
+            )
+          ).to eq false
         end
       end
     end
@@ -108,13 +104,16 @@ describe Leap do
     context 'when passed a random number' do
       it 'should return true if it is in the array of leap years', :random => true do
         100.times do
-          expect( @leap.is_leap? random_leap_year ).to eq true
+          expect( @leap.is_leap? list_of_leap_years.sample ).to eq true
         end
       end
 
       it 'should return false if it is not in the array of leap years', :random => true do
         100.times do
-          expect( @leap.is_leap? random_non_leap_year ).to eq false
+          expect( @leap.is_leap? (
+            random_year_matching { |n| list_of_leap_years.none? n }
+            )
+          ).to eq false
         end
       end
     end
@@ -146,7 +145,7 @@ describe Leap do
     end
 
     context 'when passed a random number from an array of leap years' do
-      it 'should tell you it is a leap year', :fixed => true  do
+      it 'should tell you it is a leap year', :fixed => true do
         list_of_leap_years.each do |year|
           expect( @leap.nearest year ).to eq "#{year} is a leap year!"
         end
@@ -154,11 +153,11 @@ describe Leap do
     end
 
     context 'when passed a fixed non-leap year' do
-      it 'should tell you the nearest leap year if there is only one', :fixed => true  do
+      it 'should tell you the nearest leap year if there is only one', :fixed => true do
         expect( @leap.nearest 2007 ).to eq "The nearest leap year is 2008"
       end
 
-      it 'should tell you the two nearest leap years if there are two', :fixed => true  do
+      it 'should tell you the two nearest leap years if there are two', :fixed => true do
         expect( @leap.nearest 2006 ).to eq "The nearest leap years are 2004 and 2008"
       end
     end
